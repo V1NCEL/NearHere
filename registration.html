@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="css/registration.css">
+</head>
+<body>
+    
+
+    <div id="main">
+        <h1>Join NearHere Now!</h1>
+        <form action="register.php" method="POST">
+            <label for="name">Name</label>
+            <input type="text" 
+            id="name">
+
+            <label for="surname">Surname</label>
+            <input type="text" id="surname">
+
+            <label for="username">Username</label>
+            <input type="text" id="username">
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+
+            <label for="pass">Password</label>
+            <input type="password" name="pass" id="pass">
+
+            <label for="cpass">Confirm Password</label>
+            <input type="password" name="cpass" id="cpass">
+
+            <label for="pronouns">Pronouns</label>
+            <select name="pronouns" id="pronouns">
+                <option value="she/her"></option>
+                <option value="he/him"></option>
+                <option value="they/them"></option>
+                <option value="other"></option>
+            </select>
+
+            <label for="pnumber">Phone Number</label>
+            <input type="number" name="pnumber" id="pnumber">
+
+            <label for="socials">Socials</label>
+            <input type="url" name="socials" id="socials">
+
+            <label for="pfp">Profile Picture</label>
+            <input type="file" name="pfp" id="pfp">
+        </form>
+
+        <div>
+        <button type="submit">Advertiser Account</button>
+        <button type="submit">User Account</button>
+    </div>
+    </div>
+</body>
+</html>
