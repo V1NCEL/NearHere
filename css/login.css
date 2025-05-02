@@ -4,8 +4,9 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
-    /* font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; */
 }
+
+  
 
 body {
     background: linear-gradient(135deg, #74ebd5, #ACB6E5);
@@ -106,8 +107,9 @@ button[type="submit"]:hover {
     font-weight: bold;
 
 }
-/* Responsive
-@media (max-width: 600px) {
+
+/* Responsive */
+/* @media (max-width: 600px) {
     #main {
         padding: 30px 20px;
     }
