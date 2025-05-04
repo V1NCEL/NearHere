@@ -61,19 +61,7 @@
                 <p>Already have an account? Sign in Now!</p>
             </a>
         </div>
-             </form>
-
-             <script>
-                const params = new URLSearchParams(window.location.search);
-                const error = params.get('error');
-                if (error) {
-                    const p = document.createElement('p');
-                    p.textContent = decodeURIComponent(error.replace(/\+/g, ' '));
-                    p.style.color = 'red';
-                    p.style.textAlign = 'center';
-                    document.body.prepend(p);
-                }
-            </script>
+    </form>
 
     </div>
 </body>
