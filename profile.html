@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/profile.css">
+
+  <title>Profile</title>
+  
+</head>
+<body>
+
+
+  <div id="main">
+
+
+  <header class="user-header">
+    <a href="home_reg.html"><img src="img/NearHereLogo.jpeg" alt="Logo" class="header-logo"></a>
+
+    <div>
+        <form class="search-container" action="search.html" method="GET">
+            <input type="text" name="q" placeholder="Search..." />
+     <button type="submit"><img src="img/search.png" alt="search" id="searchimg"></button> 
+          </form>
+        </div>
+
+    <div class="header-profile">
+        <a href="profile.html">
+            <img src="img/pfp.webp" alt="Profile" class="profile-pic">
+        </a>
+    </div>
+</header>
+    <div style="display: flex;">
+      <nav style="min-width: 200px; background-color: #f5f5f5; padding: 20px; border-radius: 15px; display: flex; flex-direction: column; gap: 10px;">
+        <a class="nav-button" href="profile.html">My Profile</a>
+        <a class="nav-button" href="privacy.html">Privacy</a>
+        <a class="nav-button" href="support.html">Support</a>
+        <a class="nav-button" href="help.html">Help</a>
+        <a class="nav-button" href="about.html">About</a>
+        <a class="nav-button" href="manage-events.html">Manage my events</a>
+        <a class="nav-button" href="logout.html">Log Out</a>
+      </nav>
+      <section style="flex: 1; padding: 20px;">
+        <h2>Profile</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+          <div style="flex: 1 1 45%;">
+            <label>Name</label>
+            <input type="text">
+          </div>
+          <div style="flex: 1 1 45%;">
+            <label>Username</label>
+            <input type="text">
+          </div>
+          <div style="flex: 1 1 100%;">
+            <label>Email</label>
+            <input type="email">
+          </div>
+          <div style="flex: 1 1 150px;">
+            <label>Profile Picture</label>
+            <div class="profile-picture"></div>
+          </div>
+          <div style="flex: 1 1 calc(100% - 170px);">
+            <label>Pronouns</label>
+            <input type="text">
+            <label>Name</label>
+            <input type="text">
+          </div>
+        </div>
+        <div style="margin-top: 20px;">
+          <button class="nav-button">Edit info</button>
+        </div>
+        <div style="margin-top: 30px;">
+          <a href="home_reg.html">Return to homepage</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

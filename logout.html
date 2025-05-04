@@ -1,50 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
 
-    <link rel="stylesheet" href="logout.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Coral+Pixels&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    
-
-    <div class="wrapper">
-        <ui class="mainMenu">
-            <li class="item" id="account">
-                <a href="#account" class="btn"><i class="fas fa-user-circle"></i>My Profile</a>
-            </li>
-            <li class="item" id="about">
-                <a href="#about" class="btn"><i class="fas fa-address-card"></i>Privacy</a>
-                <div class="subMenu">
-                </div>
-            </li>
-            <li class="item" id="support">
-                <a href="#support" class="btn"><i class="fas fa-info"></i>Support/FAQS</a>
-                <div class="subMenu">
-                    <a href="">Contact us for any issue!</a>
-                    <a href="">FAQS</a>
-                </div>
-            </li>
-            <li class="item">
-                <a href="#" class="btn"><i class="fas fa-sign-out-alt"></i>Log Out</a>
-            </li>
-        </ui>
+    <div id="main">
+        <h1>You're about to log out</h1>
+        <form action="php/ClassUserController.php" method="POST">
+            <button type="submit" name="logout">Log Out</button><br>
+            <a href="profile.html">
+                <p>Changed your mind? Return to Dashboard</p>
+            </a>
+        </form>
     </div>
-    
-    
-    
-    <footer>
-    <p>
-        Near Here brand. 
-      <a target="_blank"  href=""><i class="fab fa-instagram"></i></a>
-    <a target="_blank"  href=""><i class="fab fa-linkedin"></i></a>
-    <a target="_blank" href=""><i class="fab fa-codepen"></i></a> 
-        <a target="_blank" href=""><i class="fab fa-dev"></i></a> 
-             <a target="_blank" href=""><i class="fab fa-twitter-square"></i></a> 
-    </p>
-    </footer>
 </body>
-</html>
 
+</html>

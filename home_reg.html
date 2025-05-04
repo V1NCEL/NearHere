@@ -6,37 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page Near Here</title>
 
-    <link rel="stylesheet" href="css/index.css" type="text/css"/>
+    <link rel="stylesheet" href="css/home_reg.css" type="text/css"/>
 
 
 </head>
 <body>
 
-    <header>
-        <a href="login.html"> SIGN IN</a>
-        <a href="registration.html"> SIGN UP</a>
-        <a href="registration_admin.html"> SIGN UP ADMIN</a>
+    <header class="user-header">
+        <a href="home_reg.html"><img src="img/NearHereLogo.jpeg" alt="Logo" class="header-logo"></a>
+    
+        <div>
+            <form class="search-container" action="search.html" method="GET">
+                <input type="text" name="q" placeholder="Search..." />
+         <button type="submit"><img src="img/search.png" alt="search" id="searchimg"></button> 
+              </form>
+            </div>
 
+        <div class="header-profile">
+            <a href="profile.html">
+                <img src="img/pfp.webp" alt="Profile" class="profile-pic">
+            </a>
+        </div>
     </header>
 
 
-    <img src="img/NearHereLogo.jpeg" alt="" srcset="" id="logo">
-    <div>
-    <form class="search-container" action="search.html" method="GET">
-        <input type="text" name="q" placeholder="Search..." />
- <button type="submit"><img src="img/search.png" alt="search" id="searchimg"></button> 
-      </form>
-      
-    
-   
 
-    </div>
 
     <div id="main">
         <div>
             <h2>Eventos Populares</h2>
         </div>
         <div id="top">
+
         <div class="pop"><img src="./img/img1.jpg" alt="" id="pop_img"></div>
         <div class="pop"><img src="./img/img2.jpeg" alt="" id="pop_img"></div>
         <div class="pop"><img src="./img/img3.jpeg" alt="" id="pop_img"></div>
