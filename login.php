@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,12 +23,16 @@
     
     <div id="main">
         <h1>Join NearHere Now!</h1>
+
         <form action="php/ClassUserController.php" method="POST" enctype="multipart/form-data">
             <label for="username">Username</label>
             <input type="text" name="username" id="username">
 
             <label for="pass">Password</label>
             <input type="password" name="password" id="password">
+            <?php if (isset($_SESSION['error'])): ?>
+    <div style="color:red;"><?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?></div>
+    <?php endif; ?>
             <button type="submit" name="login">Log in</button><br>
             <a href="registration.php">
                 <p> Don't have an account yet? Sign up Now!</p>

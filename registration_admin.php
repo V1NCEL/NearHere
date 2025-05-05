@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,6 +53,10 @@
         
             <label for="pfp">Profile Picture</label>
             <input type="file" name="image" id="image">
+
+            <?php if (isset($_SESSION['error'])): ?>
+    <div style="color:red;"><?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?></div>
+    <?php endif; ?>
         
 
             <div id="bot">

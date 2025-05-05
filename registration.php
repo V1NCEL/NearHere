@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +13,13 @@
 
 </head>
 <body>
-    
+
+
 
     <div id="main">
         <h1>Join NearHere Now!</h1>
+
+    
         <form action="php/ClassUserController.php" method="POST" enctype="multipart/form-data">
             <label for="name">Name</label>
             <input type="text" name="name" id="name">
@@ -51,11 +55,18 @@
         
             <label for="pfp">Profile Picture</label>
             <input type="file" name="image" id="image">
+
+            <?php if (isset($_SESSION['error'])): ?>
+    <div style="color:red;"><?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?></div>
+    <?php endif; ?>
         
 
             <div id="bot">
                 <div>
             <button type="submit" name="register" value="user">User Account</button>
+
+
+
             </div><br>
             <a href="login.php">
                 <p>Already have an account? Sign in Now!</p>

@@ -1,9 +1,5 @@
 <?php
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = new ClassUserController();
@@ -48,20 +44,23 @@ class ClassUserController {
                 $_SESSION["logged"] = true;
                 $_SESSION["username"] = $row["name"];
                 $_SESSION["email"] = $row["email"];
-                $_SESSION['image'] = $row['path_img'];
-    
+                $_SESSION['image'] = $row['profile_picture'];
+
                 $this->conn->close();
                 header("Location: ../home_reg.php");
                 exit();
             } else {
                 $_SESSION["logged"] = false;
+                $_SESSION['error'] = "Incorrect password";
                 $this->conn->close();
                 header("Location: ../login.php?error=Invalid+username+or+password");
                 exit();
             }
         } else {
             $_SESSION["logged"] = false;
+            $_SESSION['error'] = "User does not exist";
             $this->conn->close();
+
             header("Location: ../login.php?error=Invalid+username+or+password");
             exit();
         }
@@ -75,7 +74,7 @@ class ClassUserController {
         exit();
     }
 
-    public function register() {
+    public function register(): void {
         $name = $_POST['name'];
         $surname = $_POST['surname'];
         $username = $_POST['username'];
@@ -85,55 +84,43 @@ class ClassUserController {
         $pronouns = $_POST['pronouns'];
         $phone_number = $_POST['pnumber'];
         $socials = $_POST['socials'];
-        $nameImage = $_FILES['image']['name'];
-        $typeImage = $_FILES['image']['type'];
-        $sizeImage = $_FILES['image']['size'];
-
+        $nameImage = 'default.png'; 
+    
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $nameImage = $_FILES['image']['name'];
+            $typeImage = $_FILES['image']['type'];
+            $sizeImage = $_FILES['image']['size'];
+    
+            $target_dir = "../img/";
+            $targetFile = $target_dir . basename($nameImage);
+    
+            if ($sizeImage > 2000000) {
+                $_SESSION['error'] = "File too large (max 2MB allowed)";
+                header("Location: ../registration.php");
+                exit();
+            }
+    
+            $allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+            if (!in_array($typeImage, $allowedTypes)) {
+                $_SESSION['error'] = "Only JPG, JPEG, PNG files are allowed";
+                header("Location: ../registration.php");
+                exit();
+            }
+    
+            if (!move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
+                $_SESSION['error'] = "Failed to upload image";
+                header("Location: ../registration.php");
+                exit();
+            }
+        }
+    
         if ($password !== $confirmPassword) {
-            header("Location: ../register.php?error=Passwords+do+not+match");
+            $_SESSION['error'] = "Passwords do not match";
+            header("Location: ../registration.php");
             exit();
         }
-
-        // if(!empty($nameImage) && ($sizeImage <= 2000000)){
-            if($typeImage == "image/jpeg" || $typeImage == "image/jpg" || $typeImage == "image/png"){
-
-                $target_dir = "../img/";
-                $targetFile = $target_dir . basename($nameImage);
-                if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
-                    echo "uploading";
-
-                }else{
-                    $_SESSION['error'] = "Error uploading";
-                    $_SESSION['error'] = $targetFile;
-                    header("Location: ../registration.php");
-                }
-        
-
-            }else{
-                $_SESSION['error'] = "Invalid image format";
-                header("Location: ../registration.php");
-             }
-            // }
     
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    
-        // $profilePicPath = '';
-        // if (isset($_FILES['pfp']) && $_FILES['pfp']['error'] == UPLOAD_ERR_OK) {
-        //     $uploadDir = '../uploads/';
-        //     if (!file_exists($uploadDir)) {
-        //         mkdir($uploadDir, 0777, true);
-        //     }
-    
-        //     $fileName = basename($_FILES['pfp']['name']);
-        //     $targetFile = $uploadDir . uniqid() . "_" . $fileName;
-    
-        //     if (move_uploaded_file($_FILES['pfp']['tmp_name'], $targetFile)) {
-        //         $profilePicPath = $targetFile;
-        //     } else {
-        //         header("Location: ../register.php?error=Profile+picture+upload+failed");
-        //         exit();
-        //     }
-        // }
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
         $stmt = $this->conn->prepare("INSERT INTO users (name, surname, username, email, password, pronouns, phone_number, socials, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssssssss", $name, $surname, $username, $email, $hashedPassword, $pronouns, $phone_number, $socials, $nameImage);
@@ -141,15 +128,14 @@ class ClassUserController {
         if ($stmt->execute()) {
             $_SESSION["logged"] = true;
             $_SESSION["user"] = $username;
-            $_SESSION["password"] = $hashedPassword;
             $_SESSION["image"] = $nameImage;
-            $this->conn->close();
+            $stmt->close();
             header("Location: ../home_reg.php");
         } else {
-            header("Location: ../register.php?error=Registration+failed.+Try+again");
+            $_SESSION['error'] = "Registration failed. Username or email might already exist.";
+            header("Location: ../registration.php");
         }
-    
-        $this->conn->close();
+        
         exit();
     }
 }
