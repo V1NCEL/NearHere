@@ -11,17 +11,17 @@
 <body>
   <div id="main">
     <header class="user-header">
-      <a href="home_reg.html"><img src="img/NearHereLogo.jpeg" alt="Logo" class="header-logo"></a>
+      <a href="home_reg.php"><img src="img/NearHereLogo.jpeg" alt="Logo" class="header-logo"></a>
   
       <div>
-          <form class="search-container" action="search.html" method="GET">
+          <form class="search-container" action="search.php" method="GET">
               <input type="text" name="q" placeholder="Search..." />
        <button type="submit"><img src="img/search.png" alt="search" id="searchimg"></button> 
             </form>
           </div>
   
       <div class="header-profile">
-          <a href="profile.html">
+          <a href="profile.php">
               <img src="img/pfp.webp" alt="Profile" class="profile-pic">
           </a>
       </div>
@@ -41,7 +41,7 @@
     <div style="display: flex; gap: 20px; margin-top: 20px;">
       <img src="img/img3.jpeg" alt="Madama Butterfly" style="width: 150px; border-radius: 10px;">
       <div>
-      <a href="event-page.html">  <strong>Madama Butterfly, de G. Puccini</strong></a>
+      <a href="event-page.php">  <strong>Madama Butterfly, de G. Puccini</strong></a>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut ultricies...</p>
       </div>
     </div>

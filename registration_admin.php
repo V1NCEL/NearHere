@@ -50,14 +50,14 @@
             <input type="url" name="socials" id="socials">
         
             <label for="pfp">Profile Picture</label>
-            <input type="file" name="pfp" id="pfp">
+            <input type="file" name="image" id="image">
         
 
             <div id="bot">
                 <div>
             <button type="submit" name="register" value="user">Advertiser Account</button>
             </div><br>
-            <a href="login.html">
+            <a href="login.php">
                 <p>Already have an account? Sign in Now!</p>
             </a>
         </div>

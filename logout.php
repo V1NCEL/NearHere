@@ -18,7 +18,7 @@
         <h1>You're about to log out</h1>
         <form action="php/ClassUserController.php" method="POST">
             <button type="submit" name="logout">Log Out</button><br>
-            <a href="profile.html">
+            <a href="profile.php">
                 <p>Changed your mind? Return to Dashboard</p>
             </a>
         </form>

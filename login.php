@@ -29,7 +29,7 @@
             <label for="pass">Password</label>
             <input type="password" name="password" id="password">
             <button type="submit" name="login">Log in</button><br>
-            <a href="registration.html">
+            <a href="registration.php">
                 <p> Don't have an account yet? Sign up Now!</p>
             </a>
         </form>

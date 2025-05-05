@@ -11,17 +11,17 @@
 <body>
   <div id="main">
   <header class="user-header">
-    <a href="home_reg.html"><img src="img/NearHereLogo.jpeg" alt="Logo" class="header-logo"></a>
+    <a href="home_reg.php"><img src="img/NearHereLogo.jpeg" alt="Logo" class="header-logo"></a>
 
     <div>
-        <form class="search-container" action="search.html" method="GET">
+        <form class="search-container" action="search.php" method="GET">
             <input type="text" name="q" placeholder="Search..." />
      <button type="submit"><img src="img/search.png" alt="search" id="searchimg"></button> 
           </form>
         </div>
 
     <div class="header-profile">
-        <a href="profile.html">
+        <a href="profile.php">
             <img src="img/pfp.webp" alt="Profile" class="profile-pic">
         </a>
     </div>
