@@ -32,46 +32,49 @@
       </div>
   </header>
     <h2>Create Event</h2>
-    <form style="display: flex; flex-wrap: wrap; gap: 20px;">
+    <form action="php/ClassEventController.php" method="POST" enctype="multipart/form-data" style="display: flex; flex-wrap: wrap; gap: 20px;">
       <div style="flex: 1 1 45%;">
         <label>Name of the event</label>
-        <input type="text">
+        <input type="text" name="event_name">
       </div>
       <div style="flex: 1 1 45%;">
         <label>Description</label>
-        <input type="text">
+        <input type="text" name="description">
       </div>
       <div style="flex: 1 1 100%;">
         <label>Date</label>
-        <input type="date">
+        <input type="date" name="event_date">
       </div>
       <div style="flex: 1 1 45%;">
         <label>Start Time</label>
-        <input type="time">
+        <input type="time" name="start_time">
       </div>
       <div style="flex: 1 1 45%;">
         <label>End Time</label>
-        <input type="time">
+        <input type="time" name="end_time">
       </div>
       <div style="flex: 1 1 45%;">
         <label>Capacity</label>
-        <input type="number">
+        <input type="number" name="capacity">
       </div>
       <div style="flex: 1 1 45%;">
         <label>Tickets Available</label>
-        <input type="number">
+        <input type="number" name="tickets_available	
+">
       </div>
       <div style="flex: 1 1 30%;">
         <label>Ticket Price</label>
-        <input type="text">
+        <input type="text" name="ticket_price">
       </div>
       <div style="flex: 1 1 100%;">
         <label>Location</label>
-        <input type="text">
+        <input type="text" name="location">
       </div>
       <div style="flex: 1 1 100%;">
         <label>Main Event Picture</label>
-        <div style="background-color: #ddd; height: 150px; border-radius: 10px;"></div>
+        <div style="background-color: #ddd; height: 150px; border-radius: 10px;">
+        <input type="file" name="main_event_picture" id="main_event_picture">
+        </div>
       </div>
       <div style="flex: 1 1 100%; text-align: right;">
         <button class="nav-button">Create Event</button>

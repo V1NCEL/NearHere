@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -29,24 +29,39 @@ class ClassUserController {
         }
     }
 
+    public function __construct() {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "NearHere";
+
+
+        try {
+            $this->conn = new PDO($servername, $username, $password, $dbname);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("Connection failed: " . $e->getMessage());
+        }
+    }
+
 
     public function login(): void {
         $username = $_POST['username'];
         $password = $_POST['password'];
     
-        $stmt = $this->conn->prepare("SELECT name, email, password FROM users WHERE username=?");
-        $stmt->bind_param("s", $username);  
+        $stmt = $this->conn->prepare("SELECT name, email, password FROM users WHERE username = :username");
+        $stmt->bind_param(':username', $username, PDO::PARAM_STR);  
         $stmt->execute();
-        $result = $stmt->get_result();
+       // $result = $stmt->get_result();
     
-        if ($row = $result->fetch_assoc()) {
+       if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             if (password_verify($password, $row['password'])) {
                 $_SESSION["logged"] = true;
                 $_SESSION["username"] = $row["name"];
                 $_SESSION["email"] = $row["email"];
                 $_SESSION['image'] = $row['profile_picture'];
 
-                $this->conn->close();
+              //  $this->conn->close();
                 header("Location: ../home_reg.php");
                 exit();
             } else {
@@ -65,6 +80,23 @@ class ClassUserController {
             exit();
         }
     }
+
+    public function login(): void {
+            } else {
+                $_SESSION["logged"] = false;
+                $_SESSION["error"] = "Incorrect password";
+                header("Location: ../login.php?error=Invalid+username+or+password");
+                exit();
+            }
+        } else {
+            $_SESSION["logged"] = false;
+            $_SESSION["error"] = "User does not exist";
+            header("Location: ../login.php?error=Invalid+username+or+password");
+            exit();
+        }
+    }
+}
+?>
     
 
     public function logout(): void {
@@ -141,4 +173,4 @@ class ClassUserController {
 }
 
 
-?>
+?> 
