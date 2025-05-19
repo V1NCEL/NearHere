@@ -9,10 +9,7 @@
   
 </head>
 <body>
-
-
   <div id="main">
-
 
   <header class="user-header">
     <a href="home_reg.php"><img src="img/NearHereLogo.jpeg" alt="Logo" class="header-logo"></a>
@@ -40,39 +37,50 @@
         <a class="nav-button" href="manage-events.php">Manage my events</a>
         <a class="nav-button" href="logout.php">Log Out</a>
       </nav>
-      <section style="flex: 1; padding: 20px;">
-        <h2>Profile</h2>
-        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-          <div style="flex: 1 1 45%;">
-            <label>Name</label>
-            <input type="text">
-          </div>
-          <div style="flex: 1 1 45%;">
-            <label>Username</label>
-            <input type="text">
-          </div>
-          <div style="flex: 1 1 100%;">
-            <label>Email</label>
-            <input type="email">
-          </div>
-          <div style="flex: 1 1 150px;">
-            <label>Profile Picture</label>
-            <div class="profile-picture"></div>
-          </div>
-          <div style="flex: 1 1 calc(100% - 170px);">
-            <label>Pronouns</label>
-            <input type="text">
-            <label>Name</label>
-            <input type="text">
-          </div>
-        </div>
-        <div style="margin-top: 20px;">
-          <button class="nav-button">Edit info</button>
-        </div>
-        <div style="margin-top: 30px;">
-          <a href="home_reg.php">Return to homepage</a>
-        </div>
-      </section>
+      <form method="POST" action="php/ClassUserController.php" enctype="multipart/form-data" style="flex: 1; padding: 20px;" onsubmit="return confirm('Are you sure you want to delete your account?')">
+  <h2>Profile</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    <div style="flex: 1 1 45%;">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name">
+    </div>
+    <div style="flex: 1 1 45%;">
+      <label for="username"> Surname</label>
+      <input type="text" id="username" name="username">
+    </div>
+    <div style="flex: 1 1 45%;">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email">
+    </div>
+    <div style="flex: 1 1 45%;">
+      <label for="number">Phone Number</label>
+      <input type="number" id="number" name="number">
+    </div>
+    <div style="flex: 1 1 45%;">
+      <label for="profile_picture">Profile Picture</label>
+      <input type="file" id="profile_picture" name="profile_picture">
+      <!-- <div class="profile-picture"></div> -->
+    </div>
+    <div style="flex: 1 1 45%;">
+      <label for="pronouns">Pronouns</label>
+      <input type="text" id="pronouns" name="pronouns">
+    </div>
+    <div style="flex: 1 1 calc(100% - 170px);">
+      <label for="socials">Socials</label>
+      <input type="text" id="socials" name="socials">
+    </div>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <button class="nav-button" type="submit" name="update">Edit Info</button>
+    <button class="nav-button" type="submit"  name="delete">Delete Account</button>
+  </div>
+
+  <div style="margin-top: 30px;">
+    <a href="home_reg.php">Return to homepage</a>
+  </div>
+</form>
+
     </div>
   </div>
 </body>

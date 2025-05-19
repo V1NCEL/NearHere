@@ -77,7 +77,8 @@
         </div>
       </div>
       <div style="flex: 1 1 100%; text-align: right;">
-        <button class="nav-button">Create Event</button>
+        <button class="nav-button" type="submit" name="create_event" value="create">Create Event</button>
+
       </div>
     </form>
   </div>
