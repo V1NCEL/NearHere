@@ -148,7 +148,7 @@ class ClassUserController {
         $stmt->bindParam(':phone', $phone_number);
         $stmt->bindParam(':socials', $socials);
         $stmt->bindParam(':image', $nameImage);
-
+ 
         if ($stmt->execute()) {
             $_SESSION["logged"] = true;
             $_SESSION["user"] = $username;
