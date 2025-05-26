@@ -36,10 +36,6 @@
         <div>
             <h2>Eventos Populares</h2>
             <a href="home_admin.php"> ADMIN</a>
-            <form action="php/ClassEventController.php" method="POST" enctype="multipart/form-data" style="display: flex; flex-wrap: wrap; gap: 20px;">
-                <button type="submit" name="read" value="read">VIEW EVENTS</button>
-            </form>
-
         </div>
         <div id="top">
 

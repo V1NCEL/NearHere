@@ -122,7 +122,7 @@ class ClassEventController {
     public function delete() : void {
         if(!isset($_POST['event_id'])) {
             $_SESSION['error'] = "Missing event ID.";
-            header("Location: ../profile.php");
+            header("Location: ../manage-events.php");
             exit();
         }
 
@@ -134,11 +134,11 @@ class ClassEventController {
 
             if($stmt->execute()) {
                 $_SESSION['success']= "Event deleted succesfully.";
-                header("Location: ../index.php");
+                header("Location: ../manage-events.php");
                 exit();
             } else {
                 $_SESSION['error']= "Failed to delete the event.";
-                header("Location: ../.php");
+                header("Location: ../manage-events.php");
                 exit();
 
             }
@@ -147,46 +147,6 @@ class ClassEventController {
             $_SESSION['error'] = "Database error: " . $e->getMessage();
             header("Location: ../manage-events.php");
             exit();
-        }
-    }
-
-
-    public function read(): void {
-        try {
-            $stmt = $this->conn->prepare("SELECT event_id, event_name, description, event_date, start_time, end_time, ticket_price, location, main_event_picture, tickets_available FROM events");
-            $stmt->execute();
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            echo '<table border="1" class="event-table">';
-            echo '<thead><tr><th>ID</th><th>Event Name</th><th>Description</th><th>Event Date</th><th>Start Time</th><th>End Time</th><th>Ticket Price</th><th>Location</th><th>Event Picture</th><th>Tickets Available</th></tr></thead>';
-            echo '<tbody>';
-
-            if (empty($results)) {
-                echo '<tr><td colspan="4">No events found</td></tr>';
-            } else {
-                foreach ($results as $row) {
-                    echo '<tr>';
-                    echo '<td>' . htmlspecialchars($row['event_id']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['event_name']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['description']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['event_date']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['start_time']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['end_time']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['ticket_price']) . ' € ' . '</td>';
-                    echo '<td>' . htmlspecialchars($row['location']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['main_event_picture']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['tickets_available']) . '</td>';
-                    echo '<td class="actions">';
-                    echo '<a href="?edit=' . $row['event_id'] . '" class="btn-edit">Edit</a> ';
-                    echo '<a href="?delete=' . $row['event_id'] . '" class="btn-delete" onclick="return confirm(\'Are you sure?\')">Delete</a>';
-                    echo '</td>';
-                    echo '</tr>';
-                }
-            }
-
-            echo '</tbody></table>';
-        } catch (PDOException $e) {
-            echo "Query failed: " . $e->getMessage();
         }
     }
 

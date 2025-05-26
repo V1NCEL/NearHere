@@ -49,7 +49,16 @@ $events = $event->getEvents();
       </nav>
 
       <div class="event-cards-container">
-  <?php
+  
+
+    <?php if (isset($_SESSION['error'])): ?>
+    <div style="color:red;"><?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?></div>
+    <?php endif; ?>
+    <?php if (isset($_SESSION['success'])): ?>
+    <div style="color:green;"><?php echo htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?></div>
+    <?php endif; ?>
+
+    <?php
   foreach ($events as $event_name => $event) {
   ?>
     <div class="event-card">
@@ -62,16 +71,15 @@ $events = $event->getEvents();
         <p><strong>Tickets Available:</strong> <?php echo $event['quantity']; ?></p>
         <p><strong>Ticket Price:</strong> €<?php echo number_format($event['price'], 2); ?></p>
         <div class="card-actions">
-        <form method="POST" action="php/ClassUserController.php" enctype="multipart/form-data" style="flex: 1; padding: 20px;" onsubmit="return confirm('Are you sure you want to update your account information?');">
+        <form method="POST" action="php/ClassEventController.php" onsubmit="return confirm('Are you sure you want to update this event?');">
+  <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($event['event_id']); ?>">
+  <button type="submit" name="edit" class="btn-edit">Edit</button>
+</form>
 
-          <a href="?edit=<?php echo urlencode($event['event_id']); ?>" class="btn-edit" name="update" value="update">Edit</a>
-
-          </form>
-
-          <form method="POST" action="php/ClassUserController.php" enctype="multipart/form-data" style="flex: 1; padding: 20px;" onsubmit="return confirm('Are you sure you want to delete your account information?');">
-          <a href="?delete=<?php echo urlencode($event['event_id']); ?>" class="btn-delete" name="delete" value="delete">Delete</a>
-
-          </form>
+<form method="POST" action="php/ClassEventController.php" onsubmit="return confirm('Are you sure you want to delete this event?');">
+  <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($event['event_id']); ?>">
+  <button type="submit" name="delete" class="btn-delete">Delete</button>
+</form>
         </div>
       </div>
       <br>
