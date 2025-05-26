@@ -120,26 +120,33 @@ class ClassEventController {
     }
 
     public function delete() : void {
-             $event_id = $_SESSION['event_id'];
-        try {
-            $stmt = $this->conn->prepare("DELETE FROM events WHERE event_id = :event_id");
-            $stmt->execute();
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(!isset($_POST['event_id'])) {
+            $_SESSION['error'] = "Missing event ID.";
+            header("Location: ../profile.php");
+            exit();
+        }
 
-             if ($stmt->execute()) {
-                session_unset();
-                session_destroy();
-                header("Location:  ../index.php");
+        $event_id = $_POST['event_id'];
+
+        try{
+            $stmt = $this->conn->prepare("DELETE FROM events WHERE event_id= :event_id");
+            $stmt->bindParam(':event_id', $event_id, PDO::PARAM_INT);
+
+            if($stmt->execute()) {
+                $_SESSION['success']= "Event deleted succesfully.";
+                header("Location: ../index.php");
                 exit();
             } else {
-                $_SESSION['error'] = "Failed to delete account.";
-                header("Location: ../profile.php");
+                $_SESSION['error']= "Failed to delete the event.";
+                header("Location: ../.php");
                 exit();
+
             }
-        } catch (PDOException $e) {
+        
+        }catch ( PDOException $e){
             $_SESSION['error'] = "Database error: " . $e->getMessage();
-            header("Location: ../profile.php");
-            exit(); 
+            header("Location: ../manage-events.php");
+            exit();
         }
     }
 

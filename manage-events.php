@@ -45,7 +45,11 @@
         <h3>Active Events</h3>
         <div style="display: flex; gap: 20px; flex-wrap: wrap;">
           <div class="pop"><img id="pop_img" src="event1.jpg" alt="Event 1"><p>DISTENSIONS #4 Coral</p>
-          <a href="edit-event.php">Edit</a></div>
+          <a href="edit-event.php">Edit</a>
+        <form method="POST" action="php/ClassEventController.php" onsubmit="return confirm('Are you sure?')">
+    <input type="hidden" name="event_id" value="<?= $row['event_id'] ?>">
+    <button type="submit" name="delete" class="btn-delete" value="delete">Delete</button>
+</form></div>
           <div class="pop"><img id="pop_img" src="event2.jpg" alt="Event 2"><p>AMAZÔNIA</p>
             <a href="edit-event.php">Edit</a></div></div>
           <div class="pop"><img id="pop_img" src="event3.jpg" alt="Event 3"><p>Madama Butterfly</p>
