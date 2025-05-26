@@ -12,8 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST["create"])) {
         $event->create();
-    } elseif (isset($_POST["edit"])) {
-        $event->edit();
     } elseif (isset($_POST["update"])) {
         $event->update();
     } elseif (isset($_POST["delete"])) {
@@ -113,8 +111,6 @@ class ClassEventController {
         }
     }
 
-    public function edit() : void {
-    }
 
     public function update() : void {
     if (!isset($_POST['event_id'])) {

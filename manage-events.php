@@ -78,7 +78,7 @@ $events = $event->getEvents();
               <p><strong>Tickets Available:</strong> <?php echo $event['quantity']; ?></p>
               <p><strong>Ticket Price:</strong> €<?php echo number_format($event['price'], 2); ?></p>
               <div class="card-actions">
-                <form method="GET" action="./edit-event.php" onsubmit="return confirm('Are you sure you want to update this event?');">
+                <form method="GET" action="./edit-event.php" >
                   <input type="hidden" name="event_id" value="<?= $event['event_id'] ?>">
                   <button type="submit">Edit</button>
                 </form>
