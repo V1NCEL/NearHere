@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (isset($_POST["delete"])) {
         $user->delete();
     } elseif (isset($_POST["update"])) {
-        $user->delete();
+        $user->update();
     }
 }
 
@@ -122,7 +122,6 @@ class ClassUserController {
             }
         }
 
-        // check if user or email already exists
         $checkStmt = $this->conn->prepare("SELECT COUNT(*) FROM users WHERE username = :username OR email = :email");
         $checkStmt->bindParam(':username', $username);
         $checkStmt->bindParam(':email', $email);
@@ -186,5 +185,75 @@ class ClassUserController {
             exit(); 
         }
     }
+    public function update(): void {
+    
+        $username = $_SESSION['username'];
+        $name = $_POST['name'] ?? '';
+        $surname = $_POST['surname'] ?? '';
+        $email = $_POST['email'] ?? '';
+        $phone_number = $_POST['pnumber'] ?? '';
+        $pronouns = $_POST['pronouns'] ?? '';
+        $socials = $_POST['socials'] ?? '';
+        $profile_picture = $_SESSION['image'] ?? 'default.png';
+    
+      
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $nameImage = basename($_FILES['image']['name']);
+            $typeImage = $_FILES['image']['type'];
+            $sizeImage = $_FILES['image']['size'];
+            $target_dir = "../img/";
+            $targetFile = $target_dir . $nameImage;
+
+            if ($sizeImage > 2000000) {
+                $_SESSION['error'] = "File too large (max 2MB allowed)";
+                header("Location: ../profile.php");
+                exit();
+            }
+
+            $allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+            if (!in_array($typeImage, $allowedTypes)) {
+                $_SESSION['error'] = "Only JPG, JPEG, PNG files are allowed";
+                header("Location: ../profile.php");
+                exit();
+            }
+
+            if (!move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
+                $_SESSION['error'] = "Failed to upload image";
+                header("Location: ../profile.php");
+                exit();
+            }
+        }
+    
+        $stmt = $this->conn->prepare("UPDATE users SET 
+            name = :name, 
+            surname = :surname, 
+            email = :email, 
+            phone_number = :phone, 
+            pronouns = :pronouns, 
+            socials = :socials, 
+            profile_picture = :image 
+            WHERE username = :username");
+    
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':surname', $surname);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phone', $phone_number);
+        $stmt->bindParam(':pronouns', $pronouns);
+        $stmt->bindParam(':socials', $socials);
+        $stmt->bindParam(':image', $profile_picture);
+        $stmt->bindParam(':username', $username);
+    
+        if ($stmt->execute()) {
+            $_SESSION["image"] = $profile_picture;
+            $_SESSION['success'] = "Profile updated successfully.";
+            header("Location: ../profile.php");
+            exit();
+        } else {
+            $_SESSION['error'] = "Failed to update profile.";
+            header("Location: ../profile.php");
+            exit();
+        }
+    }
+    
 }
 ?>

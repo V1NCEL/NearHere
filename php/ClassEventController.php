@@ -162,6 +162,39 @@ class ClassEventController {
         }
     }
 
+    public function getEvents(): array {
+        try {
+            $stmt = $this->conn->prepare("SELECT event_id, event_name, description, event_date, start_time, end_time, ticket_price, location, main_event_picture, tickets_available FROM events");
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            $events = [];
+    
+            foreach ($results as $row) {
+                $eventName = $row['event_name'];
+    
+                $events[$eventName] = [
+                    'quantity' => $row['tickets_available'], 
+                    'price' => $row['ticket_price'],
+                    'cost' => $row['ticket_price'] * $row['tickets_available'], 
+                    'event_id' => $row['event_id'],
+                    'description' => $row['description'],
+                    'event_date' => $row['event_date'],
+                    'start_time' => $row['start_time'],
+                    'end_time' => $row['end_time'],
+                    'location' => $row['location'],
+                    'main_event_picture' => $row['main_event_picture']
+                ];
+            }
+    
+            return $events;
+    
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+    
+
     public function calculateTotal() : int {
 
     }

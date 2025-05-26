@@ -1,15 +1,22 @@
+<?php
+require_once 'php/ClassEventController.php';
+$event = new ClassEventController();
+$events = $event->getEvents();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/manage-events.css">
 
   <title>Event Manager</title>
 
+
+
 </head>
 <body>
-
 
   <div id="main">
 
@@ -40,18 +47,38 @@
         <a class="nav-button" href="manage-events.php">Manage my events</a>
         <a class="nav-button" href="logout.php">Log Out</a>
       </nav>
-      <section style="flex: 1; padding: 20px;">
-        <h2>Event Manager</h2>
-        <h3>Active Events</h3>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-          <div class="pop"><img id="pop_img" src="event1.jpg" alt="Event 1"><p>DISTENSIONS #4 Coral</p>
-          <a href="edit-event.php">Edit</a></div>
-          <div class="pop"><img id="pop_img" src="event2.jpg" alt="Event 2"><p>AMAZÔNIA</p>
-            <a href="edit-event.php">Edit</a></div></div>
-          <div class="pop"><img id="pop_img" src="event3.jpg" alt="Event 3"><p>Madama Butterfly</p>
-            <a href="edit-event.php">Edit</a></div></div>
+
+      <div class="event-cards-container">
+  <?php
+  foreach ($events as $event_name => $event) {
+  ?>
+    <div class="event-card">
+    <img src="img/<?php echo htmlspecialchars($event['main_event_picture']); ?>" alt="Event Image" class="event-image"> 
+      <div class="event-details">
+        <h3><?php echo htmlspecialchars($event_name); ?></h3>
+        <p><strong>Date:</strong> <?php echo htmlspecialchars($event['event_date']); ?></p>
+        <p><strong>Time:</strong> <?php echo htmlspecialchars($event['start_time'] . ' - ' . $event['end_time']); ?></p>
+        <p><strong>Location:</strong> <?php echo htmlspecialchars($event['location']); ?></p>
+        <p><strong>Tickets Available:</strong> <?php echo $event['quantity']; ?></p>
+        <p><strong>Ticket Price:</strong> €<?php echo number_format($event['price'], 2); ?></p>
+        <div class="card-actions">
+        <form method="POST" action="php/ClassUserController.php" enctype="multipart/form-data" style="flex: 1; padding: 20px;" onsubmit="return confirm('Are you sure you want to update your account information?');">
+
+          <a href="?edit=<?php echo urlencode($event['event_id']); ?>" class="btn-edit" name="update" value="update">Edit</a>
+
+          </form>
+
+          <form method="POST" action="php/ClassUserController.php" enctype="multipart/form-data" style="flex: 1; padding: 20px;" onsubmit="return confirm('Are you sure you want to delete your account information?');">
+          <a href="?delete=<?php echo urlencode($event['event_id']); ?>" class="btn-delete" name="delete" value="delete">Delete</a>
+
+          </form>
         </div>
-      </section>
+      </div>
+      <br>
+    </div>
+  <?php } ?>
+</div>
+
     </div>
   </div>
 </body>
