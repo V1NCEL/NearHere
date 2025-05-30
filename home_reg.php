@@ -8,7 +8,15 @@
 
     <link rel="stylesheet" href="css/home_reg.css" type="text/css"/>
 
-
+<style>
+    .cat_img{
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    display: block;
+    object-fit: cover; 
+}
+</style>
 </head>
 <body>
 
@@ -24,8 +32,8 @@
 
         <div class="header-profile">
             <a href="profile.php">
-                <img src="<?php echo 'img/' . $_SESSION['image']; ?>" alt="Profile" class="profile-pic">
-            </a>
+            <img src="<?php echo 'img/' . $_SESSION['image']; ?>" alt="Profile" class="profile-pic">
+        </a>
         </div>
     </header>
 
@@ -49,15 +57,26 @@
             <h2>Categorias</h2>
             <div id="b1">
 
-                <div class="cat"></div>
-                <div class="cat"></div>
-                <div class="cat"></div>
+                <div class="cat">
+                    <img src="./img/music.jpg" alt="" class="cat_img">
+                    <p>MUSIC</p>
+                </div>
+                <div class="cat">
+                <img src="./img/art.jpg" alt=""  class="cat_img">
+                <p>ART</p>
+                </div>
+
             </div>
 
             <div id="b2">
-                <div class="cat"></div>
-                <div class="cat"></div>
-                <div class="cat"></div>
+                <div class="cat">
+                <img src="./img/sport.jpg" alt=""  class="cat_img">
+                <p>SPORTS</p>
+                </div>
+                <div class="cat">
+                <img src="./img/gast.jpg" alt=""  class="cat_img">
+                <p>GASTRONOMY</p>
+                </div>
             </div>
 
     </div>
@@ -65,7 +84,6 @@
 
         <h3>About us</h3>
         <div id="b1_2">
-        <div class="own"></div>
         <div class="own"></div>
         <div class="own"></div>
     </div>
