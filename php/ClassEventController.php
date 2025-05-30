@@ -102,6 +102,8 @@ class ClassEventController {
             $_SESSION["user"] = $event_name;
             $_SESSION["image"] = $main_event_picture;
             $this->conn = null;
+            $_SESSION['success'] = "Event created successfully.";
+
             header("Location: ../profile.php");
             exit();
         } else {

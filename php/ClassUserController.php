@@ -16,6 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user->delete();
     } elseif (isset($_POST["update"])) {
         $user->update();
+    } elseif (isset($_POST["update_password"])) {
+        $user->updatePassword();
     }
 }
 
@@ -254,6 +256,63 @@ class ClassUserController {
             exit();
         }
     }
+
+    public function updatePassword(): void {
+        $username = $_SESSION['username'] ?? '';
+        $currentPassword = $_POST['current_password'] ?? '';
+        $newPassword = $_POST['new_password'] ?? '';
+        $confirmPassword = $_POST['confirm_password'] ?? '';
+    
+        if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+            $_SESSION['error'] = "All password fields are required.";
+            header("Location: ../privacy.php");
+            exit();
+        }
+    
+        if ($newPassword !== $confirmPassword) {
+            $_SESSION['error'] = "New passwords do not match.";
+            header("Location: ../privacy.php");
+            exit();
+        }
+    
+        try {
+            $stmt = $this->conn->prepare("SELECT password FROM users WHERE username = :username");
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->execute();
+    
+            if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                if (!password_verify($currentPassword, $row['password'])) {
+                    $_SESSION['error'] = "Current password is incorrect.";
+                    header("Location: ../privacy.php");
+                    exit();
+                }
+    
+                $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $updateStmt = $this->conn->prepare("UPDATE users SET password = :password WHERE username = :username");
+                $updateStmt->bindParam(':password', $hashedNewPassword);
+                $updateStmt->bindParam(':username', $username);
+    
+                if ($updateStmt->execute()) {
+                    $_SESSION['success'] = "Password updated successfully.";
+                    header("Location: ../privacy.php");
+                    exit();
+                } else {
+                    $_SESSION['error'] = "Failed to update password.";
+                    header("Location: ../privacy.php");
+                    exit();
+                }
+            } else {
+                $_SESSION['error'] = "User not found.";
+                header("Location: ../privacy.php");
+                exit();
+            }
+        } catch (PDOException $e) {
+            $_SESSION['error'] = "Database error: " . $e->getMessage();
+            header("Location: ../privacy.php");
+            exit();
+        }
+    }
+    
     
 }
 ?>

@@ -71,12 +71,7 @@
       </div>
     </form>
 
-    <?php
-        echo "<pre>";
-        print_r($_FILES);
-        echo "</pre>";
-        exit;
-      ?>
+
   </div>
 </body>
 </html>
